@@ -3339,7 +3339,6 @@ background-image: -moz-linear-gradient(center top , #FFFFFF 40%, #E5E5E5 100%); 
 .help_appri_view{float: right; margin-top: -23px; margin-right: 2%;  position: relative;    /*z-index: 900;*/}
 .help_appri_view a{background:url(../images/doc_help.png) left center no-repeat; padding-left:20px; padding-top:0;}
 .actions_div{ height:50px;}
-.usedleaves{ color: #0b709f;}
 .leavenames{ color:#565656;margin-top: 3px; margin-bottom: 10px;font-size: 13px;}
 .resumeclass{float: left; margin-top: 26px; margin-left: 27px;}
 ul.toggle_ul { clear: both; float: left; margin-bottom: 0; margin-left: 0px; width:100%;}
@@ -4628,3 +4627,28 @@ border-radius: 16px; cursor:pointer; color:#FFF; font-family: 'Roboto Regular'; 
 }
 
 .moduleclass{ margin:5px 60px 0 0;}
+
+.leave-table{
+    width: 100%;
+    border-spacing: 0px;
+    border-right: 1px #bbb solid;
+}
+.leave-table th {
+    border: 1px solid #bbb;    
+    border-right: none;
+    background: #eee;
+    padding: 10px;
+}
+.leave-table td {
+    padding: 10px;
+    border: 1px #bbb solid;
+    border-top: none;
+    border-right: none;
+}
+.usedleaves{ 
+    background: #208bbd;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #208bbd;
+    color: #fff;
+}

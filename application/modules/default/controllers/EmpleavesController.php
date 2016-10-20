@@ -34,8 +34,7 @@ class Default_EmpleavesController extends Zend_Controller_Action
 		$this->_options= $this->getInvokeArg('bootstrap')->getOptions();
 	}
 	public function indexAction()
-	{
-	
+	{			
 		if(defined('EMPTABCONFIGS'))
 		{
 			$empOrganizationTabs = explode(",",EMPTABCONFIGS);
@@ -197,7 +196,7 @@ class Default_EmpleavesController extends Zend_Controller_Action
 	}
 
 	public function editAction()
-	{
+	{		
 		if(defined('EMPTABCONFIGS'))
 		{
 			$empOrganizationTabs = explode(",",EMPTABCONFIGS);
@@ -572,7 +571,7 @@ class Default_EmpleavesController extends Zend_Controller_Action
 	public function viewpopupAction()
 	{
 		Zend_Layout::getMvcInstance()->setLayoutPath(APPLICATION_PATH."/layouts/scripts/popup/");
-		$id = $this->getRequest()->getParam('id');
+		$id = $this->getRequest()->getParam('id');		
 		if($id == '')
 		$id = $loginUserId;
 		$callval = $this->getRequest()->getParam('call');
@@ -596,6 +595,32 @@ class Default_EmpleavesController extends Zend_Controller_Action
 			}
 		}
 		$data = $employeeleavesModal->getsingleEmpleavesrow($id);
+		$leaveTypes = $employeeleavesModal->getEmployeeLeaveType($id); //Get leaves detail	
+		$getLeaveCounts = count($leaveTypes); // Casual and sick leave count
+		// echo '<pre>'; print_r($leaveTypes); echo '</pre>'; 
+		for($LeaveCount = 0; $LeaveCount < $getLeaveCounts;  $LeaveCount++) {
+			switch ($leaveTypes[$LeaveCount]['leave_type_id']) {
+				case "1":
+				$casualLeave = $leaveTypes[$LeaveCount]['no_of_days_allotted'];
+				break;
+				case "2":
+				$sickLeave = $leaveTypes[$LeaveCount]['no_of_days_allotted'];
+				break;
+				case "3":
+				$PL = $leaveTypes[$LeaveCount]['no_of_days_allotted'];
+				break;
+				case "4":
+				$PL_Carried_over = $leaveTypes[$LeaveCount]['no_of_days_allotted'];
+				break;
+				case "9":
+				$lossOfPay = $leaveTypes[$LeaveCount]['no_of_days_allotted'];
+				break;
+				case "10":
+				$onSite = $leaveTypes[$LeaveCount]['no_of_days_allotted'];
+				break;
+			}												
+		}		
+
 		if(!empty($data))
 			$leaveTypeCount = $leavemanagementModel->getEmployeeUsedLeavesName($data['user_id'],$data['alloted_year']);
 			
@@ -610,7 +635,11 @@ class Default_EmpleavesController extends Zend_Controller_Action
 		$this->view->id = $id;
 		$this->view->data = $data;
 		$this->view->form = $empleavesform;
+		$this->view->casualType = $casualLeave; 
+		$this->view->sickType = $sickLeave; 
+		$this->view->PlType = $PL; 		
+		$this->view->PlCarriedOverType = $PL_Carried_over;
+		$this->view->lossOfPayType = $lossOfPay;  
+		$this->view->onSiteType = $onSite; 			
 	}
-
-
 }

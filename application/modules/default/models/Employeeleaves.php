@@ -42,14 +42,22 @@ class Default_Model_Employeeleaves extends Zend_Db_Table_Abstract
 	}
 	
 	public function getsingleEmployeeleaveData($id)
-	{
+	{				
 		$select = $this->select()
 						->setIntegrityCheck(false)
-						->from(array('el'=>'main_employeeleaves'),array('el.*'))
-						->where('el.user_id='.$id.' AND el.isactive = 1 AND el.alloted_year = year(now())');
-		
+						->from(array('el'=>'main_employeeleaves'),array('el.*'))						
+						->where('el.user_id='.$id.' AND el.isactive = 1 AND el.alloted_year = year(now())');		
 		return $this->fetchAll($select)->toArray();
 	}
+			
+	public function getEmployeeLeaveType($id)  //Employee leave types
+	{		
+		$select = $this->select()
+						->setIntegrityCheck(false)
+						->from(array('el'=>'employee_employee_leave_quota'),array('el.*'))
+						->where('el.employee_id='.$id);		
+		return $this->fetchAll($select)->toArray();
+	}		
 	
 	public function getPreviousYearEmployeeleaveData($id)
 	{

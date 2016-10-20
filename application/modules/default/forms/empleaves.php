@@ -46,7 +46,7 @@ class Default_Form_empleaves extends Zend_Form
                            'messages'=>array(
                                'regexNotMatch'=>'Leave limit must be in the range of 0 to 100.'
                            )
-        	));	
+        	));		
 			
 		$used_leaves = new Zend_Form_Element_Text('used_leaves');
         $used_leaves->setAttrib('maxLength', 3);
@@ -64,7 +64,7 @@ class Default_Form_empleaves extends Zend_Form
 		
 		$submitbutton = new Zend_Form_Element_Button('submitbutton');
 		
-		 $submitbutton->setAttrib('id', 'submitbuttons');
+		$submitbutton->setAttrib('id', 'submitbuttons');
 		$submitbutton->setLabel('Save');
 		
 		$this->addElements(array($id,$userid,$emp_leave_limit,$used_leaves,$alloted_year,$submit,$submitbutton));

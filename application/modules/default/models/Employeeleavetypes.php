@@ -42,11 +42,10 @@ class Default_Model_Employeeleavetypes extends Zend_Db_Table_Abstract
 		return $employeeLeaveData;       		
 	}
 	public function getsingleEmployeeLeavetypeData($id)
-	{
-		
+	{		
 		$db = Zend_Db_Table::getDefaultAdapter();
-		$leaveData = $db->query("SELECT * FROM main_employeeleavetypes WHERE id = ".$id." AND isactive=1");
-		$res = $leaveData->fetchAll();
+		$leaveData = $db->query("SELECT * FROM main_employeeleavetypes WHERE id = ".$id." AND isactive=1");		
+		$res = $leaveData->fetchAll();		
 		if (isset($res) && !empty($res)) 
 		{	
 			return $res;

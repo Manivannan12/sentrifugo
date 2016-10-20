@@ -60,7 +60,7 @@ sapp_Global::generateClientValidations($this->form);?>
 			</div>
 			
 			<div class="new-form-ui">
-			  <label class="required">Add or Remove Leaves <img class="tooltip" title="To remove leaves, append '-' sign before the leave count." src="<?php echo MEDIA_PATH;?>images/help.png"></label>
+			  <label class="required">Add or Remove Leaves<img class="tooltip" title="To remove leaves, append '-' sign before the leave count." src="<?php echo MEDIA_PATH;?>images/help.png"></label>
 			<div class="division"><?php echo $this->form->leave_limit; ?></div>
 			<?php if(isset($this->msgarray['leave_limit'])){?>
 			   <span class="errors" id="errors-<?php echo $this->form->leave_limit->getId(); ?>"><?php echo $this->msgarray['leave_limit'];?></span>

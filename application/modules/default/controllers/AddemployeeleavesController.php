@@ -152,7 +152,7 @@ class Default_AddemployeeleavesController extends Zend_Controller_Action
 								$leavetransfercount = !empty($prevyeardata)?$prevyeardata[0]['remainingleaves']:0;
 								$isleavetrasnferset = 1;
 							}
-							$currentyeardata = $employeeleavesModel->getsingleEmployeeleaveData($userId);
+							$currentyeardata = $employeeleavesModel->getsingleEmployeeleaveData($userId);							
 							if(empty($currentyeardata)) {
 								$empLeaveLimit = ($emp_leave_limit + $leavetransfercount);	
 							}else{
