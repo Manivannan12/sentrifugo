@@ -578,7 +578,7 @@ class Default_EmpleavesController extends Zend_Controller_Action
 		if($callval == 'ajaxcall')
 		$this->_helper->layout->disableLayout();
 		$objName = 'empleaves';
-
+				
 		$empleavesform = new Default_Form_empleaves();
 		$employeeleavesModal = new Default_Model_Employeeleaves();
 		$leavemanagementModel = new Default_Model_Leavemanagement();
@@ -586,11 +586,13 @@ class Default_EmpleavesController extends Zend_Controller_Action
 		$elements = $empleavesform->getElements();
 			
 		if(count($elements)>0)
+		
 		{
 			foreach($elements as $key=>$element)
-			{
+			{			
 				if(($key!="Cancel")&&($key!="Edit")&&($key!="Delete")&&($key!="Attachments")){
 					$element->setAttrib("disabled", "disabled");
+						
 				}
 			}
 		}
@@ -620,18 +622,18 @@ class Default_EmpleavesController extends Zend_Controller_Action
 				break;
 			}												
 		}		
-
-		if(!empty($data))
-			$leaveTypeCount = $leavemanagementModel->getEmployeeUsedLeavesName($data['user_id'],$data['alloted_year']);
+					
+		
 			
 		if(!empty($data))
-		{
+		{				
+			$leaveTypeCount = $leavemanagementModel->getEmployeeUsedLeavesName($data['user_id'],$data['alloted_year']);
 			$empleavesform->populate($data);
             $empleavesform->leave_limit->setValue($data['emp_leave_limit']);
 		}
 			
 		$this->view->controllername = $objName;
-		$this->view->leaveTypeCount = $leaveTypeCount;
+		$this->view->leaveTypeCount = $leaveTypeCount;		 
 		$this->view->id = $id;
 		$this->view->data = $data;
 		$this->view->form = $empleavesform;
