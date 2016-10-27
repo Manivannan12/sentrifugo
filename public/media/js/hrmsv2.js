@@ -237,19 +237,31 @@ function upgradesystem(weburl,flag,codeversion,dbversion)
 		}
 	}
 
+	/* Employee personal data validation function*/
 	function validatedocumentonsubmit()
-	{
+	{						
 		var parentdivlength = $('div[id^=parent]').length;
 	    var re = /^[a-zA-Z0-9\- ]+$/;
 	    var errorcount = 0;
-	    /*var genderid = $('#genderid').val();
+	    var genderid = $('#genderid').val();
 	    var maritalstatusid = $('#maritalstatusid').val();
 	    var nationalityid = $('#nationalityid').val();
-	    var dob = $('#dob').val();*/
+		var ethnicCode = $('#ethniccodeid').val();
+		var raceCodeId = $('#racecodeid').val();
+		var languageId = $('#languageid').val();
+	    var dob = $('#dob').val();		
+		var bloodGroup = $('#bloodgroup').val();
+		var bloodGroupChar = /(A|B|AB|O)[+-]/;	
+		
 	    $('#errors-genderid').remove();
 	    $('#errors-maritalstatusid').remove();
 	    $('#errors-nationalityid').remove();
+		$('#errors-ethniccodeid').remove();
+	    $('#errors-racecodeid').remove();
+		$('#errors-languageid').remove();
 	    $('#errors-dob').remove();
+		$('#errors-bloodgroup').remove();
+		
 	  	
 		if(parentdivlength > 0)
 	    {                    
@@ -257,7 +269,7 @@ function upgradesystem(weburl,flag,codeversion,dbversion)
 	            //var ele= $(this).find('.cls_service_request_name');   
 	            var ele= $(this);                         
 	            var elementid = $(ele).attr('id');
-	            var reqValue = $(ele).val();
+	            var reqValue = $(ele).val(); 
 	            $('#errors-'+elementid).remove();
 	            $('#errors-document_name_'+elementid).remove();
 	            if($(ele).val() == '')
@@ -292,8 +304,8 @@ function upgradesystem(weburl,flag,codeversion,dbversion)
 	            }
 	        });
 	    }
-	   /* if(genderid == '')
-	    {
+	    if(genderid == '')
+	    {			
 	        $('#genderid').parent().append("<span class='errors' id='errors-genderid'>Please select gender.</span>");
 	        errorcount++;
 	    }
@@ -307,16 +319,39 @@ function upgradesystem(weburl,flag,codeversion,dbversion)
 	        $('#nationalityid').parent().append("<span class='errors' id='errors-nationalityid'>Please select nationality.</span>");
 	        errorcount++;
 	    }
+		if(ethnicCode == '')
+	    {
+	        $('#ethniccodeid').parent().append("<span class='errors' id='errors-ethniccodeid'>Please select Ethinc code.</span>");
+	        errorcount++;
+	    }
+		if(raceCodeId == '')
+	    {
+	        $('#racecodeid').parent().append("<span class='errors' id='errors-racecodeid'>Please select date of Race code id.</span>");
+	        errorcount++;
+	    }		
+		if(languageId == '')
+	    {
+	        $('#languageid').parent().append("<span class='errors' id='errors-languageid'>Please select languageid.</span>");
+	        errorcount++;
+	    }
 	    if(dob == '')
 	    {
 	        $('#dob').parent().append("<span class='errors' id='errors-dob'>Please select date of birth.</span>");
 	        errorcount++;
-	    }*/
+	    }
+		if(bloodGroup == '')
+	    {
+	        $('#bloodgroup').parent().append("<span class='errors' id='errors-bloodgroup'>Please enter blood group.</span>");
+	        errorcount++;
+	    } else if(!bloodGroupChar.test(bloodGroup)) {
+			$('#bloodgroup').parent().append("<span class='errors' id='errors-bloodgroup'>Please enter correct blood group.</span>");
+		}
 	    if(errorcount == 0)
 	    {
 	        $.blockUI({ width:'50px',message: $("#spinner").html() });
 	        document.getElementById("formid").submit();
 	    }
+		
 	}
 	
 	

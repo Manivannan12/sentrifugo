@@ -76,7 +76,7 @@ if(!empty($this->employeedata))
                 				<?php if(isset($this->msgarray['genderid'])){?>
 				   <span class="errors" id="errors-<?php echo $this->form->genderid->getId(); ?>"><?php echo $this->msgarray['genderid'];?></span>
 				<?php }?>
-
+				
 				<?php if($this->genderaddpermission == 'Yes') { ?>	
 					<span class="add-coloum" onclick="displaydeptform('<?php echo BASE_URL.'gender/addpopup' ?>','Gender');"> Add Gender </span>			
 				<?php } ?>
@@ -153,7 +153,7 @@ if(!empty($this->employeedata))
 				<div class="division"><?php echo $this->form->dob; ?></div>
 				<?php if(isset($this->msgarray['dob'])){?>
 				   <span class="errors" id="errors-<?php echo $this->form->dob->getId(); ?>"><?php echo $this->msgarray['dob'];?></span>
-				<?php }?>
+				<?php }?>				
 				</div>
 				<!-- 								
 				<div class="new-form-ui">
@@ -169,7 +169,7 @@ if(!empty($this->employeedata))
 				<div class="division"><?php echo $this->form->bloodgroup; ?></div>
 				<?php if(isset($this->msgarray['bloodgroup'])){?>
 				   <span class="errors" id="errors-<?php echo $this->form->bloodgroup->getId(); ?>"><?php echo $this->msgarray['bloodgroup'];?></span>
-				<?php }?>
+				<?php }?>				
 				</div>
 				
 				<?php if(!empty($this->identitydocument)) {

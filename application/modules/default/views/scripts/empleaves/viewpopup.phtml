@@ -57,16 +57,16 @@ sapp_Helper::viewFooter();
 				<tbody>
 					<?php 						
 						if(!empty($this->leaveTypeCount))
-						{
+						{  
 							foreach($this->leaveTypeCount as $key => $leave)							
 							{?>				
 																	
 									<tr>
 										<td><?php echo $leave['leavetype']?></td>
 										<td>
-											<?php
-												if ($leave['leavetype'] == CASUAL_LEAVE){ echo $this->casualType;} 
-												if ($leave['leavetype'] == SICK_LEAVE){	echo $this->sickType;} 
+											<?php 
+												if ($leave['leavetype'] == CASUAL_LEAVE){ echo $this->casualType; } 
+												if ($leave['leavetype'] == SICK_LEAVE){	echo $this->sickType; } 
 												if ($leave['leavetype'] == LOSS_OF_PAY){ echo $this->PlType; }
 												if ($leave['leavetype'] == PRIVILEGE_LEAVE){ echo $this->PlCarriedOverType; }  
 												if ($leave['leavetype'] == PL_CARRIED_OVER){ echo $this->lossOfPayType; }  
@@ -79,16 +79,14 @@ sapp_Helper::viewFooter();
 										<td>
 											<?php										
 												if ($leave['leavetype'] == CASUAL_LEAVE){ echo ($this->casualType - $leave['count']); } 
-												if ($leave['leavetype'] == SICK_LEAVE){	echo ($this->sickType - $leave['count']);} 
+												if ($leave['leavetype'] == SICK_LEAVE){	echo ($this->sickType - $leave['count']); } 
 												if ($leave['leavetype'] == LOSS_OF_PAY){ echo ($this->PlType - $leave['count']); }
 												if ($leave['leavetype'] == PRIVILEGE_LEAVE){ echo ($this->PlCarriedOverType - $leave['count']); }  
 												if ($leave['leavetype'] == PL_CARRIED_OVER){ echo ($this->lossOfPayType - $leave['count']); }  
 												if ($leave['leavetype'] == ONSITE_LEAVE){ echo ($this->onSiteType - $leave['count']); }
 												?>
 										</td>
-									</tr>													 						 
-							<?php /*** if(sizeof($this->leaveTypeCount) != $key+1){ echo "," } ***/ ?>
-							
+									</tr>													 						 													
 			   			<?php
 						    }
 						} ?>

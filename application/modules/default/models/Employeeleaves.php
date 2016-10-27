@@ -26,6 +26,7 @@ class Default_Model_Employeeleaves extends Zend_Db_Table_Abstract
 	
 	public function getEmpLeavesData($sort, $by, $pageNo, $perPage,$searchQuery,$id)
 	{
+		
 		$where = " e.user_id = ".$id." AND e.isactive = 1 ";
 		if($searchQuery)
 			$where .= " AND ".$searchQuery;
@@ -37,7 +38,7 @@ class Default_Model_Employeeleaves extends Zend_Db_Table_Abstract
 						   ->where($where)
     					   ->order("$by $sort") 
     					   ->limitPage($pageNo, $perPage);
-	
+						   
 		return $empskillsData;       		
 	}
 	
@@ -49,13 +50,14 @@ class Default_Model_Employeeleaves extends Zend_Db_Table_Abstract
 						->where('el.user_id='.$id.' AND el.isactive = 1 AND el.alloted_year = year(now())');		
 		return $this->fetchAll($select)->toArray();
 	}
-			
-	public function getEmployeeLeaveType($id)  //Employee leave types
-	{		
-		$select = $this->select()
+
+	/* Employee leave types function*/		
+	public function getEmployeeLeaveType($id)  
+	{	
+	    $select = $this->select()
 						->setIntegrityCheck(false)
 						->from(array('el'=>'employee_employee_leave_quota'),array('el.*'))
-						->where('el.employee_id='.$id);		
+						->where('el.employee_id='.$id);																
 		return $this->fetchAll($select)->toArray();
 	}		
 	
