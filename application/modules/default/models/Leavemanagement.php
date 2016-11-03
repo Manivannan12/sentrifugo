@@ -279,7 +279,7 @@ class Default_Model_Leavemanagement extends Zend_Db_Table_Abstract
 		$db = Zend_Db_Table::getDefaultAdapter();
 		if($id)
 		{
-			$leaveData = $db->query("select * from (select leavetype_name leavetype,sum(appliedleavescount) count from main_leaverequest_summary where user_id= $id and year(createddate) = '".$year."' and isactive=1 and leavestatus = 2 group by leavetypeid) details where count<>0 ");									
+			$leaveData = $db->query("select * from (select leavetype_name leavetype,sum(appliedleavescount) count from main_leaverequest_summary where user_id= $id and year(createddate) = '".$year."' and isactive=1 and leavestatus = 2 group by leavetypeid) details where count<>0 ");					
 		}
 		$result= $leaveData->fetchAll();
 		return $result;

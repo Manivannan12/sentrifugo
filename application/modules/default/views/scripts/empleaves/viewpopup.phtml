@@ -18,33 +18,22 @@
  *
  *  Sentrifugo Support <support@sentrifugo.com>
  ********************************************************************************/
- /** Delcared Constant Values **/
-	const CASUAL_LEAVE = "Casual";
-	const SICK_LEAVE = "Sick";
-	const LOSS_OF_PAY = "Loss of Pay";
-	const ONSITE_LEAVE = "On Site";	
-	const PRIVILEGE_LEAVE = "Privilege";
-	const PL_CARRIED_OVER = "PL - Carried over";
 
-?>
+/**Leave Module for showing all allotted leaves, leave taken and leave balance in a Leave table**/
 
+echo $this->form->id; 
+echo $this->form->user_id;
 
-
-<?php echo $this->form->id; 
-		echo $this->form->user_id;
-		?>
-<?php 
 $leave_limit = $this->form->leave_limit->getValue();
 sapp_Helper::viewHeader();
 sapp_Helper::viewBody('alt','Leave Limit',(!empty($leave_limit))?$this->form->leave_limit->getValue():"...",'Year',(!empty($this->data['alloted_year']))?$this->data['alloted_year']:"...");
 sapp_Helper::viewFooter();
 ?>
 			<div class="clearall usedleaves">
-				Used Leaves : <?php echo $this->form->used_leaves->getValue();
-				?>				
+				Used Leaves : <?php echo $this->form->used_leaves->getValue(); ?>				
 			</div>
 			
-			<div class="clearall leavenames">
+			<div class="clearall leavenames">			
 			<table class="leave-table">
 				<thead>
 					<tr>
@@ -55,47 +44,53 @@ sapp_Helper::viewFooter();
 					</tr>
 				</thead>
 				<tbody>
-					<?php 						
-						if(!empty($this->leaveTypeCount))
-						{  
-							foreach($this->leaveTypeCount as $key => $leave)							
-							{?>				
-																	
-									<tr>
-										<td><?php echo $leave['leavetype']?></td>
-										<td>
-											<?php 
-												if ($leave['leavetype'] == CASUAL_LEAVE){ echo $this->casualType; } 
-												if ($leave['leavetype'] == SICK_LEAVE){	echo $this->sickType; } 
-												if ($leave['leavetype'] == LOSS_OF_PAY){ echo $this->PlType; }
-												if ($leave['leavetype'] == PRIVILEGE_LEAVE){ echo $this->PlCarriedOverType; }  
-												if ($leave['leavetype'] == PL_CARRIED_OVER){ echo $this->lossOfPayType; }  
-												if ($leave['leavetype'] == ONSITE_LEAVE){ echo $this->onSiteType; }
-												?>
-										</td>
-										<td><?php 
-											echo $leave['count'];
-										?></td>
-										<td>
-											<?php										
-												if ($leave['leavetype'] == CASUAL_LEAVE){ echo ($this->casualType - $leave['count']); } 
-												if ($leave['leavetype'] == SICK_LEAVE){	echo ($this->sickType - $leave['count']); } 
-												if ($leave['leavetype'] == LOSS_OF_PAY){ echo ($this->PlType - $leave['count']); }
-												if ($leave['leavetype'] == PRIVILEGE_LEAVE){ echo ($this->PlCarriedOverType - $leave['count']); }  
-												if ($leave['leavetype'] == PL_CARRIED_OVER){ echo ($this->lossOfPayType - $leave['count']); }  
-												if ($leave['leavetype'] == ONSITE_LEAVE){ echo ($this->onSiteType - $leave['count']); }
-												?>
-										</td>
-									</tr>													 						 													
-			   			<?php
-						    }
-						} ?>
+				<?php 
+				$leaveTakenValue = $this->leaveTypeCount;																													
+				foreach($this->allotedLeaves as $key => $leaveAllot) { 
+				?>																					
+					<tr>
+						<td>
+							<?php 
+								echo $leaveAllot['leavetype']; 
+							?>
+						</td>
+						<td>
+							<?php 
+								$leaveEntitled = $leaveAllot['no_of_days_allotted'];
+								echo $leaveEntitled;																						
+							?>
+						</td>										
+						<td>
+							<?php																
+								$leaveBalance = true;	
+								$leaveTaken = true;																										
+								foreach ($leaveTakenValue as $key => $leaveTakenColumn) {													 													
+									if($leaveTakenColumn['leavetype'] == $leaveAllot['leavetype']) {
+										$leaveTaken = $leaveTakenColumn['count'];
+										echo $leaveTaken;						
+										if($leaveTaken != 0) 
+											$leaveBalance = $leaveEntitled - $leaveTaken;																																																					
+									} 
+								}
+								if($leaveTaken)
+									echo 0;											
+							?>
+						</td>
+						<td>
+							<?php 
+								if($leaveBalance)
+									echo $leaveEntitled;
+								else
+									echo $leaveBalance;											 																														
+							?>
+						</td>
+					</tr>													 						 													
+					<?php 
+						} 
+					?>										
 				</tbody>
 				</table>
 			</div>
-
         <div class="new-form-ui-submit" id="formSubmit">
-         <input onclick="closeiframepopup('empleaves','cancel');" type="button" value="Close"  />
-       		
-
+         <input onclick="closeiframepopup('empleaves','cancel');" type="button" value="Close"  />       		
 </div>

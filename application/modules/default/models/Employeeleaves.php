@@ -53,12 +53,12 @@ class Default_Model_Employeeleaves extends Zend_Db_Table_Abstract
 
 	/* Employee leave types function*/		
 	public function getEmployeeLeaveType($id)  
-	{	
-	    $select = $this->select()
-						->setIntegrityCheck(false)
-						->from(array('el'=>'employee_employee_leave_quota'),array('el.*'))
-						->where('el.employee_id='.$id);																
-		return $this->fetchAll($select)->toArray();
+	{		 
+		$select = $this->_db->select()						
+					->from(array('eelq' => 'employee_employee_leave_quota'))
+					->joinLeft(array('melt' => 'main_employeeleavetypes'), 'eelq.leave_type_id = melt.id', array('melt.leavetype'))
+					->where('eelq.employee_id='.$id);								
+		return $this->getAdapter()->fetchAll($select);			
 	}		
 	
 	public function getPreviousYearEmployeeleaveData($id)

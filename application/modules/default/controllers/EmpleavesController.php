@@ -18,13 +18,7 @@
  *
  *  Sentrifugo Support <support@sentrifugo.com>
  ********************************************************************************/
- /** Delcared Constant Values **/
-const CASUAL_LEAVE_ID = 1;
-const SICK_LEAVE_ID = 2;
-const PRIVILEGE_LEAVE_ID = 3;
-const PL_CARRIED_OVER_ID = 4;
-const LOP_ID = 9;
-const ONSITE_ID = 10;
+
 
 class Default_EmpleavesController extends Zend_Controller_Action
 {
@@ -585,72 +579,38 @@ class Default_EmpleavesController extends Zend_Controller_Action
 		if($callval == 'ajaxcall')
 		$this->_helper->layout->disableLayout();
 		$objName = 'empleaves';
-				
 		$empleavesform = new Default_Form_empleaves();
 		$employeeleavesModal = new Default_Model_Employeeleaves();
 		$leavemanagementModel = new Default_Model_Leavemanagement();		
 		$empleavesform->removeElement("submit");
 		$elements = $empleavesform->getElements();
 			
-		if(count($elements)>0)
-		
+		if(count($elements) > 0)		
 		{
-			foreach($elements as $key=>$element)
+			foreach($elements as $key => $element)
 			{			
-				if(($key!="Cancel")&&($key!="Edit")&&($key!="Delete")&&($key!="Attachments")){
+				if(($key != "Cancel") && ($key != "Edit") && ($key != "Delete") && ($key != "Attachments"))
+				{
 					$element->setAttrib("disabled", "disabled");
-						
 				}
 			}
 		}
+		
 		$data = $employeeleavesModal->getsingleEmpleavesrow($id);
-		$leaveTypes = $employeeleavesModal->getEmployeeLeaveType($id); //leaves data 			
-		$getLeaveCounts = count($leaveTypes); // Leave counts
-					
-		for($LeaveCount = 0; $LeaveCount < $getLeaveCounts;  $LeaveCount++) {						
-			switch ($leaveTypes[$LeaveCount]['leave_type_id']) {
-				case CASUAL_LEAVE_ID:
-				$casualLeave = $leaveTypes[$LeaveCount]['no_of_days_allotted'];
-				break;
-				case SICK_LEAVE_ID:
-				$sickLeave = $leaveTypes[$LeaveCount]['no_of_days_allotted'];
-				break;
-				case PRIVILEGE_LEAVE_ID:
-				$PL = $leaveTypes[$LeaveCount]['no_of_days_allotted'];
-				break;
-				case PL_CARRIED_OVER_ID:
-				$PL_Carried_over = $leaveTypes[$LeaveCount]['no_of_days_allotted'];
-				break;
-				case LOP_ID:
-				$lossOfPay = $leaveTypes[$LeaveCount]['no_of_days_allotted'];
-				break;
-				case ONSITE_ID:
-				$onSite = $leaveTypes[$LeaveCount]['no_of_days_allotted'];				
-				break;
-				default:
-				return("No leaves");
-			}												
-		}		
-					
-
+		$leaveTypes = $employeeleavesModal->getEmployeeLeaveType($id); //Getting all allotted leaves data					
+													
 		if(!empty($data))
-		{				
-			$leaveTypeCount = $leavemanagementModel->getEmployeeUsedLeavesName($data['user_id'],$data['alloted_year']);
-			// print_r($data['user_id']);
+		{							
+			$leaveTypeCount = $leavemanagementModel->getEmployeeUsedLeavesName($data['user_id'],$data['alloted_year']);			
 			$empleavesform->populate($data);
             $empleavesform->leave_limit->setValue($data['emp_leave_limit']);			
 		}
 			
 		$this->view->controllername = $objName;
-		$this->view->leaveTypeCount = $leaveTypeCount;		 		
+		$this->view->leaveTypeCount = $leaveTypeCount;	
+		$this->view->allotedLeaves = $leaveTypes;			 		
 		$this->view->id = $id;
 		$this->view->data = $data;
-		$this->view->form = $empleavesform;
-		$this->view->casualType = $casualLeave; 
-		$this->view->sickType = $sickLeave; 
-		$this->view->PlType = $PL; 		
-		$this->view->PlCarriedOverType = $PL_Carried_over;
-		$this->view->lossOfPayType = $lossOfPay;  
-		$this->view->onSiteType = $onSite; 					
+		$this->view->form = $empleavesform;			
 	}
 }
